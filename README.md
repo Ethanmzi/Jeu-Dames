@@ -15,7 +15,7 @@ Windows: `java -classpath .\jna-3.0.9.jar;.\jna-platform-4.5.1.jar;.\ LesDames
 `
 # Cahier des charges
 * Dans un premier temps, il faut créer un jeu fonctionnel dont les règles reposent sur l'utilisateur (pas de vérifications)
-* On veut un plateau de jeu, des pions, des dames, des cases de différentes couleurs (voir PDF moodle)
+* On veut un plateau de jeu, des pions, des dames, des cases de différentes couleurs.
 
 # Règles
 * le périmètre est une zone d'invincibilité (on peut pas manger et atterir en dehors du plateau)
