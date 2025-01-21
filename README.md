@@ -11,8 +11,6 @@ et [JNA-platform](http://central.maven.org/maven2/net/java/dev/jna/jna-platform/
 pour compiler, faire ``javac java -classpath .\jna-3.0.9.jar;.\jna-platform-4.5.1.jar;.\ LesDames.java``
 
 ## Comment exécuter
- Linux / OSX(?) ``java -cp .:/dossier/jline.jar LesDames``
-
 Windows: `java -classpath .\jna-3.0.9.jar;.\jna-platform-4.5.1.jar;.\ LesDames
 `
 # Cahier des charges
