@@ -57,4 +57,47 @@ public class InterfaceGraphique {
             }
         }
     }
+
+
+    private Case caseSelectionnee = null; // Stocke la case actuellement sélectionnée
+
+
+    private void gererClic(int x, int y) {
+        Case clicCase = plateau.getCase(x, y);
+        if (caseSelectionnee == null) {
+        // Sélectionner une pièce
+            if (!clicCase.estVide() && clicCase.getPiece().estBlanc() == jeu.estTourBlanc()) {
+            caseSelectionnee = clicCase;
+            boutons[x][y].setBackground(Color.BLUE); // Mettre en évidence la sélection
+            }
+        } else {
+        // Déplacer la pièce
+            if (clicCase.estVide() && mouvementValide(caseSelectionnee, clicCase)) {
+                Piece piece = caseSelectionnee.getPiece();
+                caseSelectionnee.setPiece(null);
+                clicCase.setPiece(piece);
+
+            // Changer de joueur
+                jeu.changerTour();
+            }
+            // Réinitialiser la sélection
+            reinitialiserSelection();
+        }
+        mettreAJourPieces();
+    }
+
+    
+    private boolean mouvementValide(Case depart, Case arrivee) {
+        int dx = Math.abs(depart.getX() - arrivee.getX());
+        int dy = Math.abs(depart.getY() - arrivee.getY());
+
+        // Vérifie si le déplacement est d'une case en diagonale
+        if (dx == 1 && dy == 1) {
+            return true;
+        }
+        // Ajouter la logique pour capturer une pièce (prendre en compte les cases intermédiaires)
+        // Exemple : dx == 2 && dy == 2 pour une capture
+
+        return false;
+    }
 }
