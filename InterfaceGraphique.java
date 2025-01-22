@@ -62,42 +62,59 @@ public class InterfaceGraphique {
     private Case caseSelectionnee = null; // Stocke la case actuellement sélectionnée
 
 
-    private void gererClic(int x, int y) {
+   private void gererClic(int x, int y) {
         Case clicCase = plateau.getCase(x, y);
+
         if (caseSelectionnee == null) {
-        // Sélectionner une pièce
+            // Sélection d'une pièce
             if (!clicCase.estVide() && clicCase.getPiece().estBlanc() == jeu.estTourBlanc()) {
-            caseSelectionnee = clicCase;
-            boutons[x][y].setBackground(Color.BLUE); // Mettre en évidence la sélection
+                caseSelectionnee = clicCase;
+                boutons[x][y].setBackground(Color.BLUE); // Met en surbrillance la sélection
             }
         } else {
-        // Déplacer la pièce
+            // Déplacement ou annulation de la sélection
             if (clicCase.estVide() && mouvementValide(caseSelectionnee, clicCase)) {
+                // Déplacement de la pièce
                 Piece piece = caseSelectionnee.getPiece();
-                caseSelectionnee.setPiece(null);
-                clicCase.setPiece(piece);
+                caseSelectionnee.setPiece(null); // La case d'origine devient vide
+                clicCase.setPiece(piece); // La nouvelle case contient la pièce
 
-            // Changer de joueur
+                // Changer de joueur
                 jeu.changerTour();
             }
-            // Réinitialiser la sélection
+            // Réinitialisation de la sélection dans tous les cas
             reinitialiserSelection();
         }
+
+        // Rafraîchit l'affichage
         mettreAJourPieces();
     }
 
-    
+
+
     private boolean mouvementValide(Case depart, Case arrivee) {
+        if (!arrivee.estVide()) {
+            return false; // La case d'arrivée doit être vide
+        }
+
+        Piece piece = depart.getPiece();
         int dx = Math.abs(depart.getX() - arrivee.getX());
         int dy = Math.abs(depart.getY() - arrivee.getY());
 
-        // Vérifie si le déplacement est d'une case en diagonale
+        // Vérifie un déplacement d'une case en diagonale
         if (dx == 1 && dy == 1) {
-            return true;
+            // Vérifie la direction du déplacement pour les pions
+            if (piece instanceof Pion) {
+                if (piece.estBlanc()) {
+                    return arrivee.getX() < depart.getX(); // Les pions blancs montent
+                } else {
+                    return arrivee.getX() > depart.getX(); // Les pions noirs descendent
+                }
+            }
+            return true; // Les dames peuvent bouger dans toutes les directions
         }
-        // Ajouter la logique pour capturer une pièce (prendre en compte les cases intermédiaires)
-        // Exemple : dx == 2 && dy == 2 pour une capture
 
+        // Ajoutez la logique pour la capture si nécessaire
         return false;
     }
 }
