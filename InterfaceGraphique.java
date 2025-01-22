@@ -4,10 +4,12 @@ import java.awt.*;
 public class InterfaceGraphique {
     private Jeu jeu;
     private Plateau plateau;
+    private JButton[][] boutons;
 
     public InterfaceGraphique(Jeu jeu, Plateau plateau) {
         this.jeu = jeu;
         this.plateau = plateau;
+        this.boutons = new JButton[8][8];
     }
 
     public void afficher() {
@@ -20,10 +22,35 @@ public class InterfaceGraphique {
             for (int j = 0; j < 8; j++) {
                 JButton caseButton = new JButton();
                 caseButton.setBackground((i + j) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY);
+                caseButton.setEnabled((i + j) % 2 != 0); // Désactiver les cases claires
+                boutons[i][j] = caseButton;
                 panelPlateau.add(caseButton);
             }
         }
         frame.add(panelPlateau);
         frame.setVisible(true);
+
+        mettreAJourPieces();
+    }
+
+    public void mettreAJourPieces() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Case currentCase = plateau.getCase(i, j);
+                Piece piece = currentCase.getPiece();
+                JButton bouton = boutons[i][j];
+
+                if (piece != null) {
+                    // Affiche un cercle noir ou blanc pour représenter les pions
+                    if (piece.estBlanc()) {
+                        bouton.setText("⚪");
+                    } else {
+                        bouton.setText("⚫");
+                    }
+                } else {
+                    bouton.setText(""); // Vide pour une case sans pièce
+                }
+            }
+        }
     }
 }
