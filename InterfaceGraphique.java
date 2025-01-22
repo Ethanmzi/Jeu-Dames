@@ -88,7 +88,7 @@ public class InterfaceGraphique {
         if (caseSelectionnee == null) {
             // Sélection d'une pièce
             if (!clicCase.estVide() && clicCase.getPiece().estBlanc() == jeu.estTourBlanc()) {
-                System.out.println("Sélection de la pièce à la case : (" + x + ", " + y + ")");
+                System.out.println("Selection de la piece a la case : (" + x + ", " + y + ")");
                 caseSelectionnee = clicCase;
                 boutons[x][y].setBackground(Color.BLUE); // Met en surbrillance la sélection
             }
@@ -96,7 +96,7 @@ public class InterfaceGraphique {
             // Déplacement ou annulation de la sélection
             if (clicCase.estVide() && mouvementValide(caseSelectionnee, clicCase)) {
                 // Déplacement de la pièce
-                System.out.println("Déplacement de la pièce de (" + caseSelectionnee.getX() + ", " + caseSelectionnee.getY() + ") à (" + x + ", " + y + ")");
+                System.out.println("Deplacement de la piece de (" + caseSelectionnee.getX() + ", " + caseSelectionnee.getY() + ") a (" + x + ", " + y + ")");
                 Piece piece = caseSelectionnee.getPiece();
                 caseSelectionnee.setPiece(null); // La case d'origine devient vide
                 clicCase.setPiece(piece); // La nouvelle case contient la pièce
