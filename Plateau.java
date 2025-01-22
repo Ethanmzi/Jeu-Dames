@@ -7,12 +7,12 @@ public class Plateau {
     }
 
     private void initialiserPlateau() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                cases[i][j] = new Case(i, j);
-                if ((i + j) % 2 == 1) { // Cases noires
-                    if (i < 3) cases[i][j].setPiece(new Pion(false)); // Joueur 2
-                    else if (i > 4) cases[i][j].setPiece(new Pion(true)); // Joueur 1
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            cases[i][j] = new Case(i, j);
+            if ((i + j) % 2 == 1) { // Cases noires
+                if (i < 3) cases[i][j].setPiece(new Pion(false)); // Pions noirs
+                else if (i > 4) cases[i][j].setPiece(new Pion(true)); // Pions blancs
                 }
             }
         }
