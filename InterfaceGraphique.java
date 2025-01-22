@@ -1,13 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
-private ImageIcon iconPionBlanc;
-private ImageIcon iconPionNoir;
 
 public class InterfaceGraphique {
     private Jeu jeu;
     private Plateau plateau;
     private JButton[][] boutons;
+    private ImageIcon iconPionBlanc;
+    private ImageIcon iconPionNoir;
 
     public InterfaceGraphique(Jeu jeu, Plateau plateau) {
         this.jeu = jeu;
