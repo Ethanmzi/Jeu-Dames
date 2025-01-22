@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 
+private ImageIcon iconPionBlanc;
+private ImageIcon iconPionNoir;
+
 public class InterfaceGraphique {
     private Jeu jeu;
     private Plateau plateau;
@@ -10,53 +13,70 @@ public class InterfaceGraphique {
         this.jeu = jeu;
         this.plateau = plateau;
         this.boutons = new JButton[8][8];
+        // Chargement des images
+        iconPionBlanc = new ImageIcon(getClass().getResource("/resources/PionBlanc.png"));
+        iconPionNoir = new ImageIcon(getClass().getResource("/resources/PionNoir.png"));
     }
 
-    public void afficher() {
-        JFrame frame = new JFrame("Jeu de Dames");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 600);
+    public InterfaceGraphique(Plateau plateau, Jeu jeu) {
+        this.plateau = plateau;
+        this.jeu = jeu;
+        this.boutons = new JButton[8][8];
 
+        frame = new JFrame("Jeu de Dames");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+
+        // Création du label pour afficher le tour du joueur
+        labelTour = new JLabel("Tour du joueur : Blanc", SwingConstants.CENTER);
+        frame.add(labelTour, BorderLayout.NORTH); // Ajoute le label en haut de la fenêtre
+
+        // Création du plateau de jeu
         JPanel panelPlateau = new JPanel(new GridLayout(8, 8));
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                int finalI = i;
-                int finalJ = j;
-                JButton caseButton = new JButton();
-                caseButton.setBackground((i + j) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY);
-                caseButton.setEnabled((i + j) % 2 != 0); // Activer uniquement les cases noires
-                caseButton.addActionListener(e -> gererClic(finalI, finalJ));
-                boutons[i][j] = caseButton;
-                panelPlateau.add(caseButton);
+                boutons[i][j] = new JButton();
+                boutons[i][j].setBackground((i + j) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY);
+                boutons[i][j].setOpaque(true);
+                boutons[i][j].setBorderPainted(false);
+
+                int x = i;
+                int y = j;
+                boutons[i][j].addActionListener(e -> gererClic(x, y));
+
+                panelPlateau.add(boutons[i][j]);
             }
         }
-        frame.add(panelPlateau);
+        frame.add(panelPlateau, BorderLayout.CENTER);
+
+        frame.pack();
         frame.setVisible(true);
 
         mettreAJourPieces();
     }
 
 
-    public void mettreAJourPieces() {
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 8; j++) {
-            Case currentCase = plateau.getCase(i, j);
-            Piece piece = currentCase.getPiece();
-            JButton bouton = boutons[i][j];
-
-            if (piece != null) {
-                // Utilisez des cercles pour représenter les pièces
-                if (piece.estBlanc()) {
-                    bouton.setText("⚪"); // Pion blanc
+    private void mettreAJourPieces() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Case currentCase = plateau.getCase(i, j);
+                if (!currentCase.estVide()) {
+                    Piece piece = currentCase.getPiece();
+                    if (piece instanceof Pion) {
+                        // Affiche l'icône en fonction de la couleur de la pièce
+                        if (piece.estBlanc()) {
+                            boutons[i][j].setIcon(iconPionBlanc);
+                        } else {
+                            boutons[i][j].setIcon(iconPionNoir);
+                        }
+                    }
                 } else {
-                    bouton.setText("⚫"); // Pion noir
-                }
-            } else {
-                bouton.setText(""); // Case vide
+                    boutons[i][j].setIcon(null); // Pas d'icône pour une case vide
                 }
             }
         }
     }
+
 
 
     private Case caseSelectionnee = null; // Stocke la case actuellement sélectionnée
