@@ -117,4 +117,16 @@ public class InterfaceGraphique {
         // Ajoutez la logique pour la capture si nécessaire
         return false;
     }
+
+
+    private void reinitialiserSelection() {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if ((i + j) % 2 == 1) { // Remettre les cases noires à leur couleur d'origine
+                    boutons[i][j].setBackground(Color.DARK_GRAY);
+                }
+            }
+        }
+        caseSelectionnee = null;
+    }
 }
