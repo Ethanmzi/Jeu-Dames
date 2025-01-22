@@ -20,9 +20,12 @@ public class InterfaceGraphique {
         JPanel panelPlateau = new JPanel(new GridLayout(8, 8));
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                int finalI = i;
+                int finalJ = j;
                 JButton caseButton = new JButton();
                 caseButton.setBackground((i + j) % 2 == 0 ? Color.LIGHT_GRAY : Color.DARK_GRAY);
-                caseButton.setEnabled((i + j) % 2 != 0); // Désactiver les cases claires
+                caseButton.setEnabled((i + j) % 2 != 0); // Activer uniquement les cases noires
+                caseButton.addActionListener(e -> gererClic(finalI, finalJ));
                 boutons[i][j] = caseButton;
                 panelPlateau.add(caseButton);
             }
@@ -32,6 +35,7 @@ public class InterfaceGraphique {
 
         mettreAJourPieces();
     }
+
 
     public void mettreAJourPieces() {
     for (int i = 0; i < 8; i++) {
