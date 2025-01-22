@@ -32,4 +32,14 @@ public class Jeu {
         Jeu jeu = new Jeu();
         jeu.lancer();
     }
+    
+    private boolean tourBlanc = true; // Le joueur blanc commence
+
+    public boolean estTourBlanc() {
+        return tourBlanc;
+    }
+
+    public void changerTour() {
+        tourBlanc = !tourBlanc;
+    }
 }
