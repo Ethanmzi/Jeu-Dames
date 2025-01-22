@@ -34,21 +34,21 @@ public class InterfaceGraphique {
     }
 
     public void mettreAJourPieces() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                Case currentCase = plateau.getCase(i, j);
-                Piece piece = currentCase.getPiece();
-                JButton bouton = boutons[i][j];
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            Case currentCase = plateau.getCase(i, j);
+            Piece piece = currentCase.getPiece();
+            JButton bouton = boutons[i][j];
 
-                if (piece != null) {
-                    // Affiche un cercle noir ou blanc pour représenter les pions
-                    if (piece.estBlanc()) {
-                        bouton.setText("⚪");
-                    } else {
-                        bouton.setText("⚫");
-                    }
+            if (piece != null) {
+                // Utilisez des cercles pour représenter les pièces
+                if (piece.estBlanc()) {
+                    bouton.setText("⚪"); // Pion blanc
                 } else {
-                    bouton.setText(""); // Vide pour une case sans pièce
+                    bouton.setText("⚫"); // Pion noir
+                }
+            } else {
+                bouton.setText(""); // Case vide
                 }
             }
         }
