@@ -1,9 +1,10 @@
-# dames-java
+# Dames-java
 Jeu de dames en Java, interface Swing 
 # Equipe Projet 
-Ethan 
-Nathan
-Jsp son nom au dernier
+* Ethan 
+* Nathan
+* Jsp son nom au dernier
+
 # Cahier des charges
 * Dans un premier temps, il faut créer un jeu fonctionnel dont les règles reposent sur l'utilisateur (pas de vérifications)
 * On veut un plateau de jeu, des pions, des dames, des cases de différentes couleurs (voir PDF moodle)
@@ -17,6 +18,7 @@ Partie input/affichage :
 Ca affichera le plateau et permettra à l'utilisateur de déplacer le curseur
 le curseur se souvient de la dernière position séléctionnée,
 
+# Attentes Démarrage
 on peut afficher instantanément le plateau sans rien demander au joueur, il faut faire plateau.afficher()
 De plus nous avons un suivi des cases sur lequels nos pions se deplacent via le terminal lorsqu'on execute le programme
 avec la commande ``java jeu``
