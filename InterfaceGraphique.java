@@ -1,35 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
 
-
 public class InterfaceGraphique {
+    // Déclaration des attributs
     private Jeu jeu;
     private Plateau plateau;
     private JButton[][] boutons;
     private ImageIcon iconPionBlanc;
     private ImageIcon iconPionNoir;
+    private JFrame frame;
+    private JLabel labelTour;
 
+    // Constructeur
     public InterfaceGraphique(Jeu jeu, Plateau plateau) {
         this.jeu = jeu;
         this.plateau = plateau;
         this.boutons = new JButton[8][8];
+
         // Chargement des images
         iconPionBlanc = new ImageIcon(getClass().getResource("/resources/PionBlanc.png"));
         iconPionNoir = new ImageIcon(getClass().getResource("/resources/PionNoir.png"));
-    }
 
-    public InterfaceGraphique(Plateau plateau, Jeu jeu) {
-        this.plateau = plateau;
-        this.jeu = jeu;
-        this.boutons = new JButton[8][8];
-
+        // Initialisation de la fenêtre
         frame = new JFrame("Jeu de Dames");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
-        // Création du label pour afficher le tour du joueur
+        // Création du label pour afficher le tour
         labelTour = new JLabel("Tour du joueur : Blanc", SwingConstants.CENTER);
-        frame.add(labelTour, BorderLayout.NORTH); // Ajoute le label en haut de la fenêtre
+        frame.add(labelTour, BorderLayout.NORTH);
 
         // Création du plateau de jeu
         JPanel panelPlateau = new JPanel(new GridLayout(8, 8));
@@ -49,40 +48,41 @@ public class InterfaceGraphique {
         }
         frame.add(panelPlateau, BorderLayout.CENTER);
 
-        frame.pack();
-        frame.setVisible(true);
-
-        mettreAJourPieces();
+        frame.pack(); // Prépare la fenêtre
     }
 
 
+    public void afficher() {
+        frame.setVisible(true);
+    }
+    
+
     private void mettreAJourPieces() {
+        // Mise à jour des pièces sur le plateau
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Case currentCase = plateau.getCase(i, j);
                 if (!currentCase.estVide()) {
                     Piece piece = currentCase.getPiece();
-                    if (piece instanceof Pion) {
-                        // Affiche l'icône en fonction de la couleur de la pièce
-                        if (piece.estBlanc()) {
-                            boutons[i][j].setIcon(iconPionBlanc);
-                        } else {
-                            boutons[i][j].setIcon(iconPionNoir);
-                        }
+                    Image img = icon.getImage().getScaledInstance(boutons[i][j].getWidth(), boutons[i][j].getHeight(), Image.SCALE_SMOOTH);
+                    boutons[i][j].setIcon(new ImageIcon(img));  // Applique l'image redimensionnée
+                if (piece instanceof Pion) {
+                        boutons[i][j].setIcon(piece.getCouleur() == Couleur.BLANC ? iconPionBlanc : iconPionNoir);
+                    } else {
+                        // Si d'autres types de pièces existent
+                        boutons[i][j].setIcon(null);
                     }
                 } else {
-                    boutons[i][j].setIcon(null); // Pas d'icône pour une case vide
+                    boutons[i][j].setIcon(null);
                 }
             }
         }
     }
 
 
-
     private Case caseSelectionnee = null; // Stocke la case actuellement sélectionnée
 
-
-   private void gererClic(int x, int y) {
+    private void gererClic(int x, int y) {
         Case clicCase = plateau.getCase(x, y);
 
         if (caseSelectionnee == null) {
@@ -139,6 +139,15 @@ public class InterfaceGraphique {
         // Ajoutez la logique pour la capture si nécessaire
         return false;
     }
+
+    public void mettreAJourTour(Couleur joueurActif) {
+        if (joueurActif == Couleur.BLANC) {
+            labelTour.setText("Tour du joueur : Blanc");
+        } else {
+            labelTour.setText("Tour du joueur : Noir");
+        }
+    }
+
 
 
     private void reinitialiserSelection() {

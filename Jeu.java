@@ -4,9 +4,14 @@ public class Jeu {
     private Joueur joueur2;
     private Joueur joueurActuel;
 
-    public Jeu() {
-        initialiser();
+    public static void main(String[] args) {
+        Plateau plateau = new Plateau();
+        Jeu jeu = new Jeu();
+        InterfaceGraphique interfaceGraphique = new InterfaceGraphique(jeu, plateau);
+
+        interfaceGraphique.afficher();
     }
+
 
     private void initialiser() {
         plateau = new Plateau();
@@ -27,11 +32,6 @@ public class Jeu {
     public Joueur getJoueurActuel() {
         return joueurActuel;
     }
-
-    public static void main(String[] args) {
-        Jeu jeu = new Jeu();
-        jeu.lancer();
-    }
     
     private boolean tourBlanc = true; // Le joueur blanc commence
 
@@ -40,6 +40,9 @@ public class Jeu {
     }
 
     public void changerTour() {
-        tourBlanc = !tourBlanc;
+        joueurActif = (joueurActif == Couleur.BLANC) ? Couleur.NOIR : Couleur.BLANC;
+        // Met à jour l'affichage
+        interfaceGraphique.mettreAJourTour(joueurActif);
     }
+
 }

@@ -10,4 +10,15 @@ public abstract class Piece {
     }
 
     public abstract boolean deplacementValide(Case depart, Case destination, Plateau plateau);
+
+    private Couleur couleur;
+
+    public Piece(Couleur couleur) {
+        this.couleur = couleur;
+    }
+
+    public Couleur getCouleur() {
+        return couleur;
+    }
 }
+
