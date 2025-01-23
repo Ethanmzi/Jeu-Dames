@@ -17,7 +17,7 @@ le curseur se souvient de la dernière position séléctionnée,
 
 on peut afficher instantanément le plateau sans rien demander au joueur, il faut faire plateau.afficher()
 De plus nous avons un suivi des cases sur lequels nos pions se deplacent via le terminal lorsqu'on execute le programme
-avec la commande 'java jeu'
+avec la commande ``java jeu``
 
 Les coordonnées : j'utilise un système de coordonnées : un tableau d'entiers [x,y]. Attention : quand on parcourt un tableau 2D,
 Y représente le numéro des lignes (un tableu 1D) et X celui des colonnes (objets contenus dans le tableau 1D Y) 
